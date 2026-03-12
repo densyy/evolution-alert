@@ -1,7 +1,9 @@
 <script>
+  import { onMount } from 'svelte'
   import Button from '../../components/Button.svelte'
   import Input from '../../components/Input.svelte'
   import { buildConnectionUrl } from '../../lib/url.js'
+  import { saveAssistantFormData, loadAssistantFormData } from '../../lib/storage.js'
 
   let domain = ''
   let instance = ''
@@ -28,6 +30,8 @@
       params: createConnectionParams()
     })
 
+    saveAssistantFormData(createConnectionParams())
+
     feedbackType = 'success'
     feedbackMessage = 'Link gerado com sucesso.'
   }
@@ -44,6 +48,18 @@
       feedbackMessage = 'Não foi possível copiar o link automaticamente.'
     }
   }
+
+  onMount(() => {
+    const savedData = loadAssistantFormData()
+
+    if (savedData) {
+      domain = savedData.domain || ''
+      instance = savedData.instance || ''
+      number = savedData.number || ''
+      token = savedData.token || ''
+      globalApiKey = savedData.globalApiKey || ''
+    }
+  })
 </script>
 
 <form class="assistant-form" on:submit|preventDefault={generateUrl}>
@@ -52,7 +68,7 @@
       id="domain"
       label="Domínio do Evolution API"
       bind:value={domain}
-      placeholder="evolution-api.densyy.com"
+      placeholder="evolution-api.dominio.com"
       helpText="Pode informar com ou sem https://"
       required
     />
@@ -61,7 +77,7 @@
       id="instance"
       label="Nome da instância"
       bind:value={instance}
-      placeholder="ChapaDoAgro"
+      placeholder="João"
       required
     />
 
