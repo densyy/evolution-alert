@@ -56,7 +56,7 @@ function getEncryptedConnectionParams (search = '') {
 
   const searchParams = new URLSearchParams(queryString)
 
-  return searchParams.get('params') || ''
+  return searchParams.get('reference') || ''
 }
 
 function getConnectionParamsFromSearch (search = '') {
@@ -71,7 +71,7 @@ function buildConnectionUrl ({ path = '/', params, origin = '' } = {}) {
   const baseOrigin = origin || (typeof window !== 'undefined' ? window.location.origin : '')
   const url = new URL(normalizePathname(path), baseOrigin)
 
-  url.searchParams.set('params', encryptConnectionParams(normalizeConnectionParams(params)))
+  url.searchParams.set('reference', encryptConnectionParams(normalizeConnectionParams(params)))
 
   return url.toString()
 }
