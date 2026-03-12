@@ -1,0 +1,76 @@
+:root {
+  --color-bg: #ece5dd; /* WhatsApp classic web background */
+  --color-surface: #ffffff;
+  --color-card: #ffffff;
+  --color-input: #f0f2f5;
+  --color-border: #d1d7db;
+  --color-border-soft: #e9edef;
+  --color-border-focus: #128c7e;
+  --color-text: #111b21;
+  --color-text-muted: #667781;
+  --color-accent: #25d366;
+  --color-accent-dark: #128c7e;
+  --color-success: #128c7e;
+  --color-danger: #ef4c4c;
+  --shadow-sm: 0 1px 3px rgba(11, 20, 26, 0.08);
+  --shadow-lg: 0 8px 24px rgba(11, 20, 26, 0.05);
+
+  /* WhatsApp Header Green Background effect */
+  --color-header-bg: #00a884;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+  background-color: var(--color-bg);
+  background-image: linear-gradient(to bottom, var(--color-header-bg) 0%, var(--color-header-bg) 222px, var(--color-bg) 222px, var(--color-bg) 100%);
+  background-repeat: no-repeat;
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+body,
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button,
+input,
+textarea {
+  outline: none;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
