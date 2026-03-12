@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from 'svelte'
+	import { onMount, onDestroy } from 'svelte'
 	import Button from '../../components/Button.svelte'
 	import QrCodeDisplay from '../../components/QrCodeDisplay.svelte'
 	import { getQrCodeBase64, checkConnectionState } from '../../services/evolution.js'
@@ -17,6 +17,7 @@
 	let infoMessage = ''
 	let isCheckingConnection = true
 	let isRefreshingQrCode = false
+	let connectionStateInterval = null
 
 	const getInstanceName = () => connectionParams?.instance || 'instância'
 
@@ -54,6 +55,28 @@
 			errorMessage = error.message
 		} finally {
 			isRefreshingQrCode = false
+		}
+	}
+
+	async function checkConnectionStateInterval () {
+		if (!hasRequiredConnectionParams(connectionParams)) return
+
+		try {
+			const connection = await checkConnectionState(
+				connectionParams.domain,
+				connectionParams.instance,
+				connectionParams.token
+			)
+
+			connectionState = connection.state
+
+			if (connectionState === 'open' && !isConnected) {
+				qrCodeBase64 = ''
+				infoMessage = `A instância ${connection.instanceName} já está conectada ao WhatsApp.`
+				errorMessage = ''
+			}
+		} catch (error) {
+			// Falhas ao verificar estado são silenciosas
 		}
 	}
 
@@ -99,6 +122,16 @@
 
 	onMount(() => {
 		loadConnectionData()
+
+		connectionStateInterval = setInterval(function () {
+			checkConnectionStateInterval()
+		}, 10000)
+	})
+
+	onDestroy(() => {
+		if (connectionStateInterval) {
+			clearInterval(connectionStateInterval)
+		}
 	})
 
 	$: isConnected = connectionState === 'open'
