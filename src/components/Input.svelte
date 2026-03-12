@@ -34,35 +34,36 @@
   }
 
   .label {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--color-text);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
   }
 
   .input {
     width: 100%;
-    min-height: 3rem;
-    padding: 0.85rem 1rem;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
     border: 1px solid var(--color-border);
-    border-radius: 0.9rem;
-    background: var(--color-input);
+    border-radius: 0.5rem;
+    background: #fff;
     color: var(--color-text);
     font: inherit;
+    font-size: 0.9rem;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .input::placeholder {
-    color: var(--color-text-muted);
+    color: #a0aab0;
   }
 
   .input:focus {
     outline: none;
     border-color: var(--color-border-focus);
-    box-shadow: 0 0 0 4px rgba(196, 138, 92, 0.14);
+    box-shadow: 0 0 0 2px rgba(18, 140, 126, 0.15);
   }
 
   .help-text {
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    color: #a0aab0;
   }
 </style>

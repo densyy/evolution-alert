@@ -124,12 +124,15 @@
   .actions {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 0.75rem;
+    margin-top: 0.5rem;
   }
 
   .feedback {
     margin: 0;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 500;
   }
 
   .feedback--success {
@@ -141,33 +144,41 @@
   }
 
   .result-card {
-    display: grid;
-    gap: 0.75rem;
-    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
     border: 1px solid var(--color-border-soft);
-    border-radius: 1.25rem;
-    background: rgba(255, 255, 255, 0.72);
+    border-radius: 0.75rem;
+    background: #f8f9fa;
   }
 
   .result-label {
     margin: 0;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    font-weight: 600;
     text-transform: uppercase;
-    color: var(--color-accent-dark);
+    color: var(--color-text-muted);
   }
 
   textarea {
     width: 100%;
-    min-height: 8rem;
-    padding: 1rem;
+    min-height: 6rem;
+    padding: 0.75rem;
     border: 1px solid var(--color-border);
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     resize: vertical;
     background: #fff;
     color: var(--color-text);
     font: inherit;
+    font-size: 0.85rem;
     line-height: 1.5;
+    word-break: break-all;
+  }
+
+  textarea:focus {
+    outline: none;
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 0 2px rgba(18, 140, 126, 0.15);
   }
 </style>

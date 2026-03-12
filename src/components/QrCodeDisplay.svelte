@@ -2,70 +2,90 @@
   export let src = ''
   export let loading = false
   export let errorMessage = ''
-  export let title = 'QR code do WhatsApp'
-  export let description = 'Escaneie o código abaixo para concluir a conexão.'
+  export let title = 'Escaneie o QR Code'
+  export let description = 'Abra o WhatsApp no seu celular e escaneie o código para conectar.'
 </script>
 
-<section class="qr-card">
-  <div class="qr-copy">
-    <p class="eyebrow">Evolution API</p>
-    <h2>{title}</h2>
-    <p>{description}</p>
-  </div>
+<div class="qr-container">
+  <div class="qr-content">
+    <div class="qr-text">
+      <h2>{title}</h2>
+      <p>{description}</p>
+    </div>
 
-  {#if loading}
-    <div class="qr-state">
-      <div class="loader" aria-hidden="true"></div>
-      <span>Gerando QR code...</span>
+    <div class="qr-box">
+      {#if loading}
+        <div class="qr-state">
+          <div class="loader" aria-hidden="true"></div>
+          <span>Gerando código...</span>
+        </div>
+      {:else if errorMessage}
+        <div class="qr-state qr-state--error">
+          <svg viewBox="0 0 24 24" class="icon-error" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <span>{errorMessage}</span>
+        </div>
+      {:else if src}
+        <div class="qr-image-wrapper">
+          <img class="qr-image" src={src} alt="QR code para autenticação do WhatsApp">
+        </div>
+      {:else}
+        <div class="qr-state">
+          <span>Nenhum código disponível.</span>
+        </div>
+      {/if}
     </div>
-  {:else if errorMessage}
-    <div class="qr-state qr-state--error">
-      <span>{errorMessage}</span>
-    </div>
-  {:else if src}
-    <div class="qr-image-wrapper">
-      <img class="qr-image" src={src} alt="QR code para autenticação do WhatsApp">
-    </div>
-  {:else}
-    <div class="qr-state">
-      <span>Nenhum QR code disponível no momento.</span>
-    </div>
-  {/if}
-</section>
+  </div>
+</div>
 
 <style>
-  .qr-card {
-    display: grid;
+  .qr-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .qr-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 1.5rem;
-    padding: 1.5rem;
-    border: 1px solid var(--color-border-soft);
-    border-radius: 1.5rem;
-    background: var(--color-surface);
-    box-shadow: 0 20px 50px rgba(61, 40, 23, 0.08);
+    width: 100%;
   }
 
-  .qr-copy {
-    display: grid;
-    gap: 0.5rem;
+  .qr-text {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
   }
 
-  .qr-copy h2 {
+  .qr-text h2 {
     margin: 0;
-    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-text);
   }
 
-  .qr-copy p {
+  .qr-text p {
     margin: 0;
+    font-size: 0.9rem;
     color: var(--color-text-muted);
-    line-height: 1.6;
+    line-height: 1.5;
+    max-width: 20rem;
   }
 
-  .eyebrow {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-accent-dark);
+  .qr-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16.5rem;
+    height: 16.5rem;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(11, 20, 26, 0.05);
+    border: 1px solid var(--color-border-soft);
   }
 
   .qr-image-wrapper,
@@ -73,38 +93,36 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 20rem;
-    padding: 1.5rem;
-    border-radius: 1.25rem;
-    background: #fff;
-    border: 1px dashed var(--color-border);
+    width: 100%;
+    height: 100%;
+  }
+
+  .qr-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   .qr-state {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
+    font-size: 0.9rem;
     color: var(--color-text-muted);
   }
 
-  .qr-state--error {
+  .icon-error {
+    width: 2rem;
+    height: 2rem;
     color: var(--color-danger);
-    border-color: rgba(187, 82, 59, 0.35);
-    background: rgba(187, 82, 59, 0.06);
-  }
-
-  .qr-image {
-    width: min(100%, 22rem);
-    aspect-ratio: 1;
-    object-fit: contain;
   }
 
   .loader {
-    width: 2.4rem;
-    height: 2.4rem;
-    border: 3px solid rgba(196, 138, 92, 0.2);
-    border-top-color: var(--color-accent);
-    border-radius: 999px;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 2px solid rgba(18, 140, 126, 0.2);
+    border-top-color: var(--color-accent-dark);
+    border-radius: 50%;
     animation: spin 0.8s linear infinite;
   }
 

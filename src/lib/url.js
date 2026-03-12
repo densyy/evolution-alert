@@ -31,6 +31,8 @@ function getCurrentPath () {
 }
 
 function normalizeConnectionParams (params = {}) {
+  if (!params) return {}
+
   return REQUIRED_CONNECTION_PARAM_NAMES.reduce(function (accumulator, key) {
     accumulator[key] = String(params[key] || '').trim()
     return accumulator
@@ -38,6 +40,8 @@ function normalizeConnectionParams (params = {}) {
 }
 
 function hasRequiredConnectionParams (params = {}) {
+  if (!params) return false
+
   const normalizedParams = normalizeConnectionParams(params)
 
   return REQUIRED_CONNECTION_PARAM_NAMES.every(function (key) {
